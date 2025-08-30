@@ -7,6 +7,6 @@ type: Meeting Room
 contact: "777-888-9999 | connect@hub.com"
 website: "https://connecthub.com"
 amenities: ["WiFi", "Coffee", "Printing"]
-image: "/assets/images/connect-hub.jpg"
+image: "/assets/images/coworking-space-in-jaipur.webp"
 description: "Modern meeting space for collaboration."
 ---
