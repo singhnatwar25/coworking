@@ -1,13 +1,121 @@
+/* Reset + Fonts */
 body {
-  background-color: #f8f9fa;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #f4f6fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
-  color: #0d6efd;
+/* Navbar / Header */
+.container-fluid.bg-primary {
+  background-color: #2026d2 !important;
 }
 
+.container-fluid.bg-primary h3 {
+  font-weight: 600;
+}
+
+/* Filters Row */
+.container-fluid .form-control,
+.container-fluid .form-select {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.container-fluid .btn-dark {
+  background-color: #2026d2;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* Cards */
 .card {
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.card-body {
+  padding: 15px 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2026d2;
+}
+
+.card p {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.card .fw-bold {
+  font-size: 16px;
+  color: #111;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #2026d2;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+.btn-outline-primary {
+  border-color: #2026d2;
+  color: #2026d2;
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+.btn-outline-primary:hover {
+  background-color: #2026d2;
+  color: #fff;
+}
+
+/* Form (List your spaces) */
+#list-form .card {
+  border-radius: 10px;
+}
+
+#list-form h5 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+#list-form input {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+}
+
+#list-form button {
+  background-color: #2026d2;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: 500;
+}
+
+/* Footer */
+footer {
+  background-color: #2026d2;
+  font-size: 14px;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+footer a:hover {
+  color: #ddd;
 }

@@ -3,18 +3,82 @@ layout: default
 title: Coworking Spaces
 ---
 
-<h1 class="mb-4">Available Coworking Spaces</h1>
-<div class="row">
-  {% for space in site.spaces %}
-  <div class="col-md-4 mb-4">
-    <div class="card h-100 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">{{ space.title }}</h5>
-        <p class="card-text">{{ space.location }}</p>
-        <p class="text-success fw-bold">${{ space.price }}/month</p>
-        <a href="{{ space.url | relative_url }}" class="btn btn-primary">View Details</a>
+<div class="container-fluid bg-primary py-3">
+  <div class="d-flex justify-content-between align-items-center text-white px-4">
+    <h3 class="mb-0">Coworking Spaces</h3>
+    <a href="#list-form" class="btn btn-light btn-sm">List your space</a>
+  </div>
+
+  <div class="row mt-3 px-4">
+    <div class="col-md-3 mb-2">
+      <input type="text" class="form-control" placeholder="Enter location">
+    </div>
+    <div class="col-md-3 mb-2">
+      <select class="form-select">
+        <option>Select Types</option>
+        <option>Shared Desk</option>
+        <option>Meeting Room</option>
+        <option>Private Office</option>
+      </select>
+    </div>
+    <div class="col-md-3 mb-2">
+      <select class="form-select">
+        <option>All Budgets</option>
+        <option>₹0-5000</option>
+        <option>₹5000-10000</option>
+        <option>₹10000+</option>
+      </select>
+    </div>
+    <div class="col-md-3 mb-2">
+      <button class="btn btn-dark w-100">View Spaces</button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Left Side: Coworking List -->
+    <div class="col-md-8">
+      {% for space in site.spaces %}
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex">
+            <img src="{{ space.image | relative_url }}" alt="{{ space.title }}" class="me-3" style="width:80px;height:80px;object-fit:cover;">
+            <div>
+              <h5 class="card-title">{{ space.title }}</h5>
+              <p class="mb-1"><i class="bi bi-geo-alt"></i> {{ space.location }}</p>
+              <p class="mb-1"><strong>Type:</strong> {{ space.type }}</p>
+              <p class="mb-1">{{ space.amenities | join: " | " }}</p>
+              <p>{{ space.description }}</p>
+              <p><strong>Contact:</strong> {{ space.contact }}</p>
+              <p class="fw-bold">₹{{ space.price }}/month</p>
+              <a href="{{ space.url | relative_url }}" class="btn btn-primary btn-sm">View Details</a>
+              <a href="{{ space.website }}" target="_blank" class="btn btn-outline-primary btn-sm">Visit Website</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Right Side: List Your Space Form -->
+    <div class="col-md-4">
+      <div class="card shadow-sm" id="list-form">
+        <div class="card-body">
+          <h5 class="mb-3">List your spaces</h5>
+          <form>
+            <input type="text" class="form-control mb-2" placeholder="Enter your name">
+            <input type="text" class="form-control mb-2" placeholder="Enter phone number">
+            <input type="email" class="form-control mb-2" placeholder="Enter email">
+            <button class="btn btn-primary w-100">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-  {% endfor %}
 </div>
+
+<!-- Footer -->
+<footer class="bg-primary text-white text-center py-3 mt-5">
+  © 2025 Coworking Spaces. All rights reserved. | <a href="#list-form" class="text-white text-decoration-underline">List Your Coworking Spaces</a>
+</footer>

@@ -1,13 +1,12 @@
 ---
 layout: space
-title: WorkHub Downtown
-image: /assets/images/coworking.png
-type: Private Office
-price: 800
-facility: WiFi | Coffee | Printing
-description: Modern private office with high-speed internet and ergonomic furniture.
-location: New York
-contact_phone: 123-456-7890
-contact_email: contact@workhub.com
-website: https://workhub.com
+title: Connect Hub
+location: "Seattle"
+price: 1100
+type: Meeting Room
+contact: "777-888-9999 | connect@hub.com"
+website: "https://connecthub.com"
+amenities: ["WiFi", "Coffee", "Printing"]
+image: "/assets/images/connect-hub.jpg"
+description: "Modern meeting space for collaboration."
 ---
