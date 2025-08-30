@@ -1,7 +1,7 @@
 title: Coworking Spaces
 description: Explore coworking spaces across cities
-baseurl: ""
-url: ""
+baseurl: "/coworking"
+url: "https://singhnatwar25.github.io"
 
 collections:
   spaces:
