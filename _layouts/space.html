@@ -1,17 +1,34 @@
 ---
 layout: default
 ---
+<div class="space-detail-container">
+  <div class="space-card">
+    <img src="{{ page.image }}" alt="{{ page.title }}" class="space-image">
 
-<div class="card shadow p-3">
-  <img src="{{ page.image }}" alt="{{ page.title }}" class="img-fluid mb-3">
-  <h2>{{ page.title }}</h2>
-  <p><strong>Location:</strong> {{ page.location }}</p>
-  <p><strong>Type:</strong> {{ page.type }}</p>
-  <p><strong>Facilities:</strong> {{ page.facility }}</p>
-  <p>{{ page.description }}</p>
-  <p><strong>Price:</strong> ${{ page.price }}/month</p>
-  <p><strong>Contact:</strong> {{ page.contact_phone }} | {{ page.contact_email }}</p>
-  {% if page.website %}
-    <p><a href="{{ page.website }}" target="_blank" class="btn btn-primary">Visit Website</a></p>
-  {% endif %}
+    <div class="space-content">
+      <h2 class="space-title">{{ page.title }}</h2>
+      <p class="space-location">📍 {{ page.location }}</p>
+
+      <div class="space-meta">
+        <p><span>Type:</span> {{ page.type }}</p>
+        <p><span>Facilities:</span> {{ page.facility }}</p>
+      </div>
+
+      <p class="space-description">{{ page.description }}</p>
+
+      <div class="space-price-contact">
+        <p class="price-tag">${{ page.price }}/month</p>
+        <p class="contact">
+          📞 {{ page.contact_phone }} <br>
+          ✉️ {{ page.contact_email }}
+        </p>
+      </div>
+
+      {% if page.website %}
+      <a href="{{ page.website }}" target="_blank" class="btn-visit">
+        Visit Website →
+      </a>
+      {% endif %}
+    </div>
+  </div>
 </div>
