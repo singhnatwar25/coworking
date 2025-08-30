@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<div class="card shadow p-3">
+  <img src="{{ page.image }}" alt="{{ page.title }}" class="img-fluid mb-3">
+  <h2>{{ page.title }}</h2>
+  <p><strong>Location:</strong> {{ page.location }}</p>
+  <p><strong>Type:</strong> {{ page.type }}</p>
+  <p><strong>Facilities:</strong> {{ page.facility }}</p>
+  <p>{{ page.description }}</p>
+  <p><strong>Price:</strong> ${{ page.price }}/month</p>
+  <p><strong>Contact:</strong> {{ page.contact_phone }} | {{ page.contact_email }}</p>
+  {% if page.website %}
+    <p><a href="{{ page.website }}" target="_blank" class="btn btn-primary">Visit Website</a></p>
+  {% endif %}
+</div>

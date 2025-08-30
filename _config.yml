@@ -1,0 +1,8 @@
+title: Coworking Spaces
+description: Explore coworking spaces across cities
+baseurl: ""
+url: ""
+
+collections:
+  spaces:
+    output: true

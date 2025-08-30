@@ -1,0 +1,20 @@
+---
+layout: default
+title: Coworking Spaces
+---
+
+<h1 class="mb-4">Available Coworking Spaces</h1>
+<div class="row">
+  {% for space in site.spaces %}
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ space.title }}</h5>
+        <p class="card-text">{{ space.location }}</p>
+        <p class="text-success fw-bold">${{ space.price }}/month</p>
+        <a href="{{ space.url | relative_url }}" class="btn btn-primary">View Details</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
