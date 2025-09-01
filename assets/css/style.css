@@ -117,4 +117,35 @@
 
       /* space css */
 
-    
+    .spaces-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.space-card {
+  display: flex;
+  gap: 20px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  padding: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.space-card:hover {
+  transform: translateY(-5px);
+}
+
+.space-card img {
+  width: 180px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.space-info h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #222;
+}
