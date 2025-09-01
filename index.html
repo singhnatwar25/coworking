@@ -44,12 +44,12 @@ title: Coworking Spaces
       {% for space in site.spaces %}
       <div class="card mb-3 shadow-sm">
         <div class="card-body">
-          <div class="d-flex">
+          <div class="d-md-flex">
             <img
               src="{{ space.image  }}"
               alt="{{ space.title }}"
-              class="me-3"
-              style="width: 200px; height: 150px; object-fit: cover"
+              class="me-3 me-md-0 mb-3 mb-md-0"
+              style="width: 260px; height: 260px; object-fit: cover"
             />
             <div>
               <h5 class="card-title">{{ space.title }}</h5>
@@ -61,17 +61,19 @@ title: Coworking Spaces
               <p>{{ space.description }}</p>
               <p><strong>Contact:</strong> {{ space.contact }}</p>
               <p class="fw-bold">₹{{ space.price }}/month</p>
-              <a
-                href="{{ space.url | relative_url }}"
-                class="btn btn-primary btn-sm"
-                >View Details</a
-              >
-              <a
-                href="{{ space.website }}"
-                target="_blank"
-                class="btn btn-outline-primary btn-sm"
-                >Visit Website</a
-              >
+              <div class="d-flex flex-column flex-md-row justify-content-md-end gap-2">
+                <a
+                  href="{{ space.url | relative_url }}"
+                  class="btn btn-primary btn-sm"
+                  >View Details</a
+                >
+                <a
+                  href="{{ space.website }}"
+                  target="_blank"
+                  class="btn btn-outline-primary btn-sm"
+                  >Visit Website</a
+                >
+              </div>
             </div>
           </div>
         </div>
