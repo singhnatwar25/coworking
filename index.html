@@ -4,35 +4,33 @@ title: Coworking Spaces
 ---
 
 <div class="container-fluid border-bottom bg-primary py-3">
-  <div
-    class="d-flex justify-content-between align-items-center text-white px-4"
-  >
+  <div class="d-flex justify-content-between align-items-center text-white px-4">
     <h3 class="mb-0">Coworking Spaces</h3>
     <a href="#list-form" class="btn btn-light px-2">List your space</a>
   </div>
 
   <div class="row mt-3 px-4">
     <div class="col-3 col-md-3 mb-2">
-      <input type="text" class="form-control" placeholder="Enter location" />
+      <input type="text" id="filter-location" class="form-control" placeholder="Enter location" />
     </div>
     <div class="col-3 col-md-3 mb-2">
-      <select class="form-select">
-        <option>Select Types</option>
-        <option>Shared Desk</option>
-        <option>Meeting Room</option>
-        <option>Private Office</option>
+      <select id="filter-type" class="form-select">
+        <option value="">Select Types</option>
+        <option value="Shared Desk">Shared Desk</option>
+        <option value="Meeting Room">Meeting Room</option>
+        <option value="Private Office">Private Office</option>
       </select>
     </div>
     <div class="col-3 col-md-3 mb-2">
-      <select class="form-select">
-        <option>All Budgets</option>
-        <option>₹0-5000</option>
-        <option>₹5000-10000</option>
-        <option>₹10000+</option>
+      <select id="filter-budget" class="form-select">
+        <option value="">All Budgets</option>
+        <option value="0-5000">₹0-5000</option>
+        <option value="5000-10000">₹5000-10000</option>
+        <option value="10000+">₹10000+</option>
       </select>
     </div>
     <div class="col-3 col-md-3 mb-2">
-      <button class="btn btn-dark w-100">View Spaces</button>
+      <button class="btn btn-dark w-100" onclick="filterSpaces()">View Spaces</button>
     </div>
   </div>
 </div>
@@ -40,39 +38,33 @@ title: Coworking Spaces
 <div class="container-fluid mt-4">
   <div class="row">
     <!-- Left Side: Coworking List -->
-    <div class="col-md-8">
+    <div class="col-md-8" id="spaces-list">
       {% for space in site.spaces %}
-      <div class="card mb-3 shadow-sm">
+      <div 
+        class="card mb-3 shadow-sm space-card"
+        data-location="{{ space.location | downcase }}"
+        data-type="{{ space.type }}"
+        data-price="{{ space.price }}"
+      >
         <div class="card-body">
-          <div class="d-md-flex ">
+          <div class="d-md-flex">
             <img
-              src="{{ space.image  }}"
+              src="{{ space.image }}"
               alt="{{ space.title }}"
-              class="me-3 me-md-0 mb-3 mb-md-0 image-fluid px-3"
-              style="width: 260px; height: 260x; object-fit: cover"
+              class="me-3 mb-3 image-fluid"
+              style="width: 300px; height: 260px; object-fit: cover"
             />
             <div>
               <h5 class="card-title">{{ space.title }}</h5>
-              <p class="mb-1">
-                <i class="bi bi-geo-alt"></i> {{ space.location }}
-              </p>
+              <p class="mb-1"><i class="bi bi-geo-alt"></i> {{ space.location }}</p>
               <p class="mb-1"><strong>Type:</strong> {{ space.type }}</p>
               <p class="mb-1">{{ space.amenities | join: " | " }}</p>
               <p>{{ space.description }}</p>
               <p><strong>Contact:</strong> {{ space.contact }}</p>
               <p class="fw-bold">₹{{ space.price }}/month</p>
               <div class="d-flex flex-column flex-md-row justify-content-md-end gap-2">
-                <a
-                  href="{{ space.url | relative_url }}"
-                  class="btn btn-primary btn-sm"
-                  >View Details</a
-                >
-                <a
-                  href="{{ space.website }}"
-                  target="_blank"
-                  class="btn btn-outline-primary btn-sm"
-                  >Visit Website</a
-                >
+                <a href="{{ space.url | relative_url }}" class="btn btn-primary btn-sm">View Details</a>
+                <a href="{{ space.website }}" target="_blank" class="btn btn-outline-primary btn-sm">Visit Website</a>
               </div>
             </div>
           </div>
@@ -87,24 +79,9 @@ title: Coworking Spaces
         <div class="card-body">
           <h5 class="mb-3">List your spaces</h5>
           <form>
-            <input
-              type="text"
-              class="form-control mb-2"
-              name="name"
-              placeholder="Enter your name"
-            />
-            <input
-              type="text"
-              class="form-control mb-2"
-              name="phone"
-              placeholder="Enter phone number"
-            />
-            <input
-              type="email"
-              class="form-control mb-2"
-              name="email"
-              placeholder="Enter email"
-            />
+            <input type="text" class="form-control mb-2" name="name" placeholder="Enter your name" />
+            <input type="text" class="form-control mb-2" name="phone" placeholder="Enter phone number" />
+            <input type="email" class="form-control mb-2" name="email" placeholder="Enter email" />
             <button class="btn btn-primary w-100">Submit</button>
           </form>
         </div>
@@ -116,7 +93,31 @@ title: Coworking Spaces
 <!-- Footer -->
 <footer class="bg-primary text-white text-center py-3 mt-5">
   © 2025 Coworking Spaces. All rights reserved. |
-  <a href="#list-form" class="text-white text-decoration-underline"
-    >List Your Coworking Spaces</a
-  >
+  <a href="#list-form" class="text-white text-decoration-underline">List Your Coworking Spaces</a>
 </footer>
+
+<script>
+function filterSpaces() {
+  const locationInput = document.getElementById("filter-location").value.toLowerCase();
+  const typeInput = document.getElementById("filter-type").value;
+  const budgetInput = document.getElementById("filter-budget").value;
+
+  document.querySelectorAll(".space-card").forEach(card => {
+    const location = card.getAttribute("data-location");
+    const type = card.getAttribute("data-type");
+    const price = parseInt(card.getAttribute("data-price"));
+
+    let matches = true;
+
+    if (locationInput && !location.includes(locationInput)) matches = false;
+    if (typeInput && type !== typeInput) matches = false;
+    if (budgetInput) {
+      if (budgetInput === "0-5000" && !(price <= 5000)) matches = false;
+      if (budgetInput === "5000-10000" && !(price > 5000 && price <= 10000)) matches = false;
+      if (budgetInput === "10000+" && !(price > 10000)) matches = false;
+    }
+
+    card.style.display = matches ? "block" : "none";
+  });
+}
+</script>
