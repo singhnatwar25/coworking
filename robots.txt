@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://singhnatwar25.github.io/coworking/sitemap.xml

@@ -1,0 +1,15 @@
+---
+layout: null
+---
+# LLM Data File for AI Search Engines
+# Last updated: {{ site.time | date: "%Y-%m-%d" }}
+
+{% for space in site.spaces %}
+- title: "{{ space.title }}"
+  url: "{{ site.url }}{{ space.url }}"
+  location: "{{ space.location }}"
+  type: "{{ space.type }}"
+  price: "₹{{ space.price }}/month"
+  contact: "{{ space.contact }}"
+  description: "{{ space.description | strip_newlines }}"
+{% endfor %}

@@ -6,3 +6,7 @@ url: "https://singhnatwar25.github.io"
 collections:
   spaces:
     output: true
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
