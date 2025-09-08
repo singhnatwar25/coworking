@@ -5,6 +5,10 @@
         /* Adjust for fixed search bar height */
       }
 
+      .custom-nav {
+       background-color: #1e22aa;
+      }
+
       .navbar {
         background-color: #1e22aa;
       }
