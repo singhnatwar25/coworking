@@ -16,7 +16,7 @@ title: Blog - Coworking Spaces
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text text-muted">{{ post.date | date: "%B %d, %Y" }}</p>
                     <p class="card-text">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-                    <a href="{{ post.url | relative_url }}" class="btn btn-primary">Read More</a>
+                    <a href="{{ blog.url | relative_url }}" class="btn btn-primary">Read More</a>
                 </div>
             </div>
         </div>
