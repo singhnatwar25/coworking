@@ -153,3 +153,35 @@
   font-size: 22px;
   color: #222;
 }
+
+
+/* Blog Styles */
+.blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.blog-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.blog-meta {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.blog-meta span {
+    margin-right: 1rem;
+}
+
+.blog-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.sidebar {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
