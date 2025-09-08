@@ -1,31 +1,80 @@
 ---
 layout: default
 ---
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8">
-            <article class="blog-post">
-                <h1 class="blog-title">{{ page.title }}</h1>
-                <div class="blog-meta">
-                    <span>📅 {{ page.date | date: "%B %d, %Y" }}</span>
-                    {% if page.author %}
-                    <span>✍️ {{ page.author }}</span>
-                    {% endif %}
-                </div>
-                <div class="blog-content mt-4">
-                    {{ content }}
-                </div>
-            </article>
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Blog Content -->
+    <div class="col-md-8">
+      <article class="blog-post mb-5">
+        <!-- Featured Image -->
+        {% if page.image %}
+        <img src="{{ page.image }}" alt="{{ page.title }}" class="img-fluid rounded mb-4 shadow-sm">
+        {% endif %}
+
+        <!-- Title & Meta -->
+        <h1 class="blog-title mb-3">{{ page.title }}</h1>
+        <div class="blog-meta text-muted mb-4">
+          <span class="me-3">📅 {{ page.date | date: "%B %d, %Y" }}</span>
+          {% if page.author %}
+          <span>✍️ {{ page.author }}</span>
+          {% endif %}
         </div>
-        <div class="col-md-4">
-            <div class="sidebar">
-                <h3>Recent Posts</h3>
-                <ul class="list-unstyled">
-                    {% for post in site.posts limit:5 %}
-                    <li><a href="{{ blog.url | relative_url }}">{{ post.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
+
+        <!-- Blog Content -->
+        <div class="blog-content fs-5 lh-lg">
+          {{ content }}
         </div>
+
+        <!-- Tags (Optional) -->
+        {% if page.tags %}
+        <div class="mt-4">
+          <strong>Tags:</strong>
+          {% for tag in page.tags %}
+            <span class="badge bg-secondary">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+          {% if page.previous %}
+            <a href="{{ page.previous.url | relative_url }}" class="btn btn-outline-primary">← {{ page.previous.title }}</a>
+          {% endif %}
+          {% if page.next %}
+            <a href="{{ page.next.url | relative_url }}" class="btn btn-outline-primary">{{ page.next.title }} →</a>
+          {% endif %}
+        </div>
+      </article>
     </div>
+
+    <!-- Sidebar -->
+    <div class="col-md-4">
+      <div class="sidebar p-4 bg-light rounded shadow-sm">
+        <h4 class="mb-3">Recent Posts</h4>
+        <ul class="list-unstyled">
+          {% for post in site.posts limit:5 %}
+          <li class="mb-2">
+            <a href="{{ post.url | relative_url }}" class="text-decoration-none">
+              {{ post.title }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+
+        <hr>
+
+        <h4 class="mb-3">Categories</h4>
+        <ul class="list-unstyled">
+          {% for category in site.categories %}
+          <li>
+            <a href="{{ '/categories/' | append: category[0] | relative_url }}" class="text-decoration-none">
+              {{ category[0] }} ({{ category[1].size }})
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
