@@ -10,3 +10,5 @@ collections:
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
+
+permalink: /blog/:year/:month/:day/:title/

@@ -1,0 +1,25 @@
+singh\OneDrive\Documents\GitHub\coworking\blog\index.html
+---
+layout: default
+title: Blog - Coworking Spaces
+---
+<div class="container mt-4">
+    <h1 class="mb-4">Coworking Blog</h1>
+    <div class="row">
+        {% for post in site.posts %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                {% if post.image %}
+                <img src="{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text text-muted">{{ post.date | date: "%B %d, %Y" }}</p>
+                    <p class="card-text">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                    <a href="{{ post.url | relative_url }}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
