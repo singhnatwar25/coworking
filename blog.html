@@ -1,24 +1,446 @@
 ---
 layout: default
-title: Blog - Coworking Spaces
+title: Blog - Food & Hospitality Guide
 ---
-<div class="container mt-4">
-    <h1 class="mb-4">Coworking Blog</h1>
-    <div class="row">
-        {% for post in site.posts %}
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                {% if post.image %}
-                <img src="{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ post.title }}</h5>
-                    <p class="card-text text-muted">{{ post.date | date: "%B %d, %Y" }}</p>
-                    <p class="card-text">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-                    <a href="{{ post.url | relative_url }}" class="btn btn-primary">Read More</a>
+
+<!-- Hero Section -->
+<div class="blog-hero py-5 text-center text-white">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold mb-3">Culinary & Hospitality Hub</h1>
+        <p class="lead mb-4">Discover the latest trends, recipes, and business insights for cafes, restaurants, and food entrepreneurs</p>
+        <div class="search-box mx-auto" style="max-width: 600px;">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-lg" placeholder="Search recipes, tips, or locations...">
+                <button class="btn btn-primary px-4" type="button">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Post -->
+{% assign featured = site.posts.first %}
+{% if featured %}
+<div class="container my-5">
+    <div class="featured-post p-4 p-md-5 rounded-4 shadow-sm bg-light">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="badge bg-primary px-3 py-2 me-2">Featured</span>
+                    <span class="badge bg-warning text-dark px-3 py-2">
+                        <i class="bi bi-star-fill me-1"></i> Chef's Pick
+                    </span>
+                </div>
+                <h2 class="display-5 fw-bold mb-3">{{ featured.title }}</h2>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="d-flex align-items-center me-4">
+                        <div class="rounded-circle bg-white p-2 me-2">
+                            <i class="bi bi-person-circle text-primary"></i>
+                        </div>
+                        <div>
+                            <small class="d-block text-muted">Author</small>
+                            <div class="fw-medium">{{ featured.author | default: 'Admin' }}</div>
+                        </div>
+                    </div>
+                    <div class="vr me-4"></div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-clock-history text-primary me-2"></i>
+                        <span class="text-muted">{{ featured.date | date: "%B %d, %Y" }}</span>
+                    </div>
+                </div>
+                <p class="lead text-muted mb-4">{{ featured.excerpt | strip_html | truncatewords: 30 }}</p>
+                <div class="d-flex flex-wrap gap-3 mb-4">
+                    <span class="badge bg-light text-dark border">
+                        <i class="bi bi-tag me-1"></i> {{ featured.category | default: 'Food' }}
+                    </span>
+                    <span class="badge bg-light text-dark border">
+                        <i class="bi bi-people me-1"></i> {{ featured.serving | default: '4 Servings' }}
+                    </span>
+                    <span class="badge bg-light text-dark border">
+                        <i class="bi bi-clock me-1"></i> {{ featured.cook_time | default: '30 mins' }}
+                    </span>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="{{ featured.url | relative_url }}" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-book me-2"></i> Read Recipe
+                    </a>
+                    <button class="btn btn-outline-primary btn-lg">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                    <button class="btn btn-outline-primary btn-lg">
+                        <i class="bi bi-share"></i>
+                    </button>
                 </div>
             </div>
+            <div class="col-lg-6">
+                <div class="featured-img rounded-4 overflow-hidden shadow position-relative">
+                    <img 
+                        src="{{ featured.image | default: 'https://images.unsplash.com/photo-1504674900247-0877039348bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80' }}" 
+                        alt="{{ featured.title }}" 
+                        class="img-fluid w-100"
+                        style="min-height: 400px; object-fit: cover;"
+                    >
+                    <div class="position-absolute bottom-0 start-0 w-100 p-4 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-star-fill text-warning me-1"></i>
+                            <span class="me-3">4.9</span>
+                            <i class="bi bi-people-fill me-1"></i>
+                            <span>24 Reviews</span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-light text-dark">#{{ featured.tags | first | default: 'recipe' }}</span>
+                            <span class="badge bg-light text-dark">#{{ featured.cuisine | default: 'italian' }}</span>
+                            <span class="badge bg-light text-dark">#{{ featured.difficulty | default: 'easy' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Recipe Grid -->
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="section-title mb-0">Popular Recipes</h2>
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-funnel me-2"></i>Filter by Category
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                <li><a class="dropdown-item active" href="#">All Recipes</a></li>
+                <li><a class="dropdown-item" href="#">Breakfast</a></li>
+                <li><a class="dropdown-item" href="#">Lunch</a></li>
+                <li><a class="dropdown-item" href="#">Dinner</a></li>
+                <li><a class="dropdown-item" href="#">Desserts</a></li>
+                <li><a class="dropdown-item" href="#">Drinks</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        {% for post in site.posts offset:1 %}
+        <div class="col-md-6 col-lg-4">
+            <article class="recipe-card h-100">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden">
+                    <div class="position-relative">
+                        <div class="blog-card-img">
+                            <img 
+                                src="{{ post.image | default: 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80' }}" 
+                                class="card-img-top" 
+                                alt="{{ post.title }}"
+                                loading="lazy"
+                                style="height: 220px; object-fit: cover;"
+                            >
+                        </div>
+                        <div class="position-absolute top-3 end-3">
+                            <button class="btn btn-light rounded-circle p-2">
+                                <i class="bi bi-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="position-absolute bottom-0 start-0 w-100 p-3" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                            <div class="d-flex align-items-center text-white">
+                                <span class="badge bg-warning text-dark me-2">
+                                    <i class="bi bi-star-fill me-1"></i> {{ post.rating | default: '4.8' }}
+                                </span>
+                                <small class="text-white-50">({{ post.reviews | default: '42' }} reviews)</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h3 class="h5 card-title fw-bold mb-2">{{ post.title }}</h3>
+                            <span class="badge bg-light text-dark border">
+                                <i class="bi bi-clock me-1"></i> {{ post.cook_time | default: '30m' }}
+                            </span>
+                        </div>
+                        
+                        <p class="card-text text-muted mb-3">{{ post.excerpt | strip_html | truncatewords: 15 }}</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-light p-1 me-2">
+                                    <i class="bi bi-person-circle text-primary"></i>
+                                </div>
+                                <small class="text-muted">By {{ post.author | default: 'Chef' }}</small>
+                            </div>
+                            <a href="{{ post.url | relative_url }}" class="btn btn-sm btn-outline-primary">
+                                View Recipe <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="text-center mt-5">
+        <button class="btn btn-outline-primary px-4 py-2">
+            <i class="bi bi-arrow-down-circle me-2"></i> Load More Recipes
+        </button>
+    </div>
+</div>
+
+<!-- Newsletter Section -->
+<div class="position-relative py-5 my-5" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1504674900247-0877039348bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="container position-relative" style="z-index: 1;">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center text-white">
+                <div class="p-4 p-md-5">
+                    <i class="bi bi-egg-fried display-4 text-warning mb-3"></i>
+                    <h2 class="h1 mb-3 fw-bold">Join Our Foodie Community</h2>
+                    <p class="lead mb-4">Get exclusive recipes, cooking tips, and restaurant reviews delivered straight to your inbox</p>
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="p-4 bg-white rounded-4 shadow">
+                                <div class="row g-2">
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-0">
+                                                <i class="bi bi-person text-primary"></i>
+                                            </span>
+                                            <input type="text" class="form-control form-control-lg" placeholder="Your name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-0">
+                                                <i class="bi bi-envelope text-primary"></i>
+                                            </span>
+                                            <input type="email" class="form-control form-control-lg" placeholder="Your email" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 d-grid">
+                                        <button type="submit" class="btn btn-warning btn-lg fw-bold">
+                                            Subscribe <i class="bi bi-arrow-right ms-2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="small text-muted mt-3 mb-0">
+                                    <i class="bi bi-lock-fill me-1"></i> We'll never share your email. Unsubscribe anytime.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center gap-4 mt-5">
+                        <div class="text-center">
+                            <div class="display-5 fw-bold text-warning">50K+</div>
+                            <div class="text-white-50">Food Lovers</div>
+                        </div>
+                        <div class="vr text-white-50"></div>
+                        <div class="text-center">
+                            <div class="display-5 fw-bold text-warning">2K+</div>
+                            <div class="text-white-50">Recipes</div>
+                        </div>
+                        <div class="vr text-white-50"></div>
+                        <div class="text-center">
+                            <div class="display-5 fw-bold text-warning">10K+</div>
+                            <div class="text-white-50">5-Star Reviews</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Categories Section -->
+<div class="container my-5">
+    <h2 class="section-title mb-4">Browse by Category</h2>
+    <div class="row g-3">
+        {% assign categories = "Workspace Tips, Productivity, Community, Design, Events, Remote Work" | split: ", " %}
+        {% assign icons = "lamp, lightning-charge, people, brush, calendar3, laptop" | split: ", " %}
+        
+        {% for category in categories %}
+        {% assign icon_index = forloop.index0 %}
+        <div class="col-6 col-md-4 col-lg-2">
+            <a href="#" class="category-card d-block p-3 text-center rounded-3 border h-100">
+                <i class="bi bi-{{ icons[icon_index] }} fs-3 text-primary mb-2"></i>
+                <h3 class="h6 mb-0">{{ category }}</h3>
+            </a>
         </div>
         {% endfor %}
     </div>
 </div>
+
+<style>
+/* Blog Hero */
+.blog-hero {
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    border-radius: 0 0 2rem 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDQ1KSI+PHBhdGggZD0iTTAgMEg0MFY0MEgweiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+    opacity: 0.3;
+}
+
+/* Featured Post */
+.featured-post {
+    background-color: #f8f9fa;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.featured-post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+}
+
+.featured-img {
+    height: 100%;
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.featured-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.featured-post:hover .featured-img img {
+    transform: scale(1.05);
+}
+
+/* Blog Cards */
+.blog-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+.blog-card .card {
+    transition: all 0.3s ease;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.blog-card:hover .card {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+}
+
+.blog-card-img {
+    height: 200px;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.blog-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-card-img img {
+    transform: scale(1.05);
+}
+
+/* Category Cards */
+.category-card {
+    transition: all 0.3s ease;
+    color: #333;
+    text-decoration: none;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+.category-card:hover {
+    background-color: #4e54c8;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: transparent !important;
+}
+
+.category-card:hover i {
+    color: white !important;
+}
+
+/* Section Titles */
+.section-title {
+    position: relative;
+    padding-bottom: 1rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
+    border-radius: 2px;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    border: none;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
+}
+
+/* Form Controls */
+.form-control:focus {
+    border-color: #8f94fb;
+    box-shadow: 0 0 0 0.25rem rgba(143, 148, 251, 0.25);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .blog-hero {
+        padding: 3rem 0 !important;
+        border-radius: 0 0 1.5rem 1.5rem;
+    }
+    
+    .blog-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .featured-post {
+        padding: 1.5rem !important;
+    }
+    
+    .featured-post h2 {
+        font-size: 1.75rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+</style>
+
+<!-- Add Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
