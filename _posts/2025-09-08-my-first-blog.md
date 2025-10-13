@@ -2,7 +2,7 @@
 layout: blog
 title: "5 Benefits of Coworking Spaces for Startups"
 author: "John Doe"
-image: "/coworking/assets/images/blog/coworking-benefits.webp"
+image: "/coworking/assets/images/Coworking-space-in-jaipur.webp"
 excerpt: "Discover why startups are choosing coworking spaces over traditional offices"
 ---
 
