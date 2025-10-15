@@ -3,6 +3,73 @@ layout: default
 title: Blog - Food & Hospitality Guide
 ---
 
+<!-- Navigation Header -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="#">
+            <i class="bi bi-cup-hot-fill me-2"></i>FoodieHub
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Recipes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
+                        <li><a class="dropdown-item" href="#">All Recipes</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Breakfast</a></li>
+                        <li><a class="dropdown-item" href="#">Lunch</a></li>
+                        <li><a class="dropdown-item" href="#">Dinner</a></li>
+                        <li><a class="dropdown-item" href="#">Desserts</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Meal Plans</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+            
+            <!-- Search in Navbar -->
+            <div class="d-flex align-items-center position-relative">
+                <div class="search-box">
+                    <div class="input-group">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search recipes...">
+                        <button class="btn btn-outline-primary" type="button" id="searchButton">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    <div id="searchResults" class="mt-1 w-100" style="display: none; position: absolute; z-index: 1000;">
+                        <div class="card shadow">
+                            <div class="card-body p-2" id="searchResultsBody">
+                                <!-- Search results will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ms-3 d-none d-lg-block">
+                    <a href="#" class="btn btn-primary">
+                        <i class="bi bi-bookmark-heart me-1"></i> Saved
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <!-- Hero Section -->
 <div class="blog-hero py-5 text-center text-white">
     <div class="container py-5">
@@ -10,10 +77,17 @@ title: Blog - Food & Hospitality Guide
         <p class="lead mb-4">Discover the latest trends, recipes, and business insights for cafes, restaurants, and food entrepreneurs</p>
         <div class="search-box mx-auto" style="max-width: 600px;">
             <div class="input-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Search recipes, tips, or locations...">
-                <button class="btn btn-primary px-4" type="button">
+                <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Search recipes, tips, or locations...">
+                <button class="btn btn-primary px-4" type="button" id="searchButton">
                     <i class="bi bi-search"></i> Search
                 </button>
+            </div>
+            <div id="searchResults" class="mt-3 w-100" style="display: none;">
+                <div class="card">
+                    <div class="card-body" id="searchResultsBody">
+                        <!-- Search results will be displayed here -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -270,11 +344,119 @@ title: Blog - Food & Hospitality Guide
 </div>
 
 <style>
+/* Navigation */
+.navbar {
+    padding: 0.8rem 0;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand i {
+    font-size: 1.8rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    position: relative;
+    color: #2d3748 !important;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: #4e54c8 !important;
+}
+
+.nav-link.active:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 3px;
+    background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
+    border-radius: 3px 3px 0 0;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1.25rem;
+    font-weight: 400;
+    color: #4a5568;
+    border-radius: 0.25rem;
+    margin: 0 0.5rem;
+    width: auto;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: #f8f9fa;
+    color: #4e54c8;
+}
+
+.dropdown-divider {
+    margin: 0.5rem 0;
+}
+
+/* Search in Navbar */
+.search-box {
+    position: relative;
+    min-width: 250px;
+}
+
+.search-box .form-control {
+    border-radius: 2rem 0 0 2rem;
+    padding: 0.5rem 1rem;
+    border-right: none;
+}
+
+.search-box .btn {
+    border-radius: 0 2rem 2rem 0;
+    padding: 0.5rem 1rem;
+}
+
+/* Responsive Navbar */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        padding: 1rem 0;
+    }
+    
+    .search-box {
+        margin: 1rem 0;
+        width: 100%;
+    }
+    
+    .nav-link {
+        padding: 0.75rem 0 !important;
+    }
+    
+    .nav-link.active:after {
+        display: none;
+    }
+    
+    .dropdown-menu {
+        box-shadow: none;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+}
+
 /* Blog Hero */
 .blog-hero {
     background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
     border-radius: 0 0 2rem 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     position: relative;
     overflow: hidden;
 }
@@ -444,3 +626,90 @@ title: Blog - Food & Hospitality Guide
 
 <!-- Add Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<!-- Add JavaScript for Search Functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const searchResults = document.getElementById('searchResults');
+        const searchResultsBody = document.getElementById('searchResultsBody');
+        
+        // Function to perform search
+        function performSearch() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            
+            if (searchTerm === '') {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            // Get all recipe cards
+            const recipeCards = document.querySelectorAll('.recipe-card');
+            let resultsFound = false;
+            let resultsHTML = '';
+            
+            recipeCards.forEach(card => {
+                const title = card.querySelector('.card-title')?.textContent?.toLowerCase() || '';
+                const excerpt = card.querySelector('.card-text')?.textContent?.toLowerCase() || '';
+                const tags = Array.from(card.querySelectorAll('.badge')).map(badge => 
+                    badge.textContent?.toLowerCase()
+                ).join(' ');
+                
+                // Check if search term exists in title, excerpt, or tags
+                if (title.includes(searchTerm) || 
+                    excerpt.includes(searchTerm) || 
+                    tags.includes(searchTerm)) {
+                    
+                    resultsFound = true;
+                    const cardLink = card.querySelector('a[href^="/"]')?.getAttribute('href') || '#';
+                    const imageSrc = card.querySelector('img')?.getAttribute('src') || '';
+                    const titleText = card.querySelector('.card-title')?.textContent || 'Recipe';
+                    const excerptText = card.querySelector('.card-text')?.textContent || '';
+                    
+                    resultsHTML += `
+                        <div class="d-flex align-items-center mb-3 p-2 border-bottom">
+                            <img src="${imageSrc}" alt="${titleText}" class="rounded me-3" style="width: 80px; height: 60px; object-fit: cover;">
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">${titleText}</h5>
+                                <p class="text-muted small mb-1">${excerptText.substring(0, 100)}...</p>
+                                <a href="${cardLink}" class="btn btn-sm btn-outline-primary">View Recipe</a>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            if (resultsFound) {
+                searchResultsBody.innerHTML = resultsHTML;
+            } else {
+                searchResultsBody.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="bi bi-search display-5 text-muted mb-3"></i>
+                        <p class="mb-0">No recipes found for "${searchTerm}"</p>
+                        <p class="small text-muted">Try different keywords or check back later for new recipes.</p>
+                    </div>
+                `;
+            }
+            
+            searchResults.style.display = 'block';
+        }
+        
+        // Event listeners
+        searchButton.addEventListener('click', performSearch);
+        
+        // Also search when pressing Enter in the search input
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Close search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-box')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    });
+</script>

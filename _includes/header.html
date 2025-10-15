@@ -1,0 +1,66 @@
+<!-- Navigation Header -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="/">
+            <i class="bi bi-cup-hot-fill me-2"></i>FoodieHub
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if page.url == '/' %}active{% endif %}" href="/">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Recipes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
+                        <li><a class="dropdown-item" href="/recipes">All Recipes</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/categories/breakfast">Breakfast</a></li>
+                        <li><a class="dropdown-item" href="/categories/lunch">Lunch</a></li>
+                        <li><a class="dropdown-item" href="/categories/dinner">Dinner</a></li>
+                        <li><a class="dropdown-item" href="/categories/desserts">Desserts</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page.url contains '/meal-plans' %}active{% endif %}" href="/meal-plans">Meal Plans</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page.url == '/about' %}active{% endif %}" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page.url == '/contact' %}active{% endif %}" href="/contact">Contact</a>
+                </li>
+            </ul>
+            
+            <!-- Search in Navbar -->
+            <div class="d-flex align-items-center position-relative">
+                <div class="search-box">
+                    <div class="input-group">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search recipes...">
+                        <button class="btn btn-outline-primary" type="button" id="searchButton">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    <div id="searchResults" class="mt-1 w-100" style="display: none; position: absolute; z-index: 1000;">
+                        <div class="card shadow">
+                            <div class="card-body p-2" id="searchResultsBody">
+                                <!-- Search results will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ms-3 d-none d-lg-block">
+                    <a href="/saved" class="btn btn-primary">
+                        <i class="bi bi-bookmark-heart me-1"></i> Saved
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
