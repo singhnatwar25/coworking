@@ -126,10 +126,10 @@ title: Blog - Food & Hospitality Guide
                 <p class="lead text-muted mb-4">{{ featured.excerpt | strip_html | truncatewords: 30 }}</p>
                 <div class="d-flex flex-wrap gap-3 mb-4">
                     <span class="badge bg-light text-dark border">
-                        <i class="bi bi-tag me-1"></i> {{ featured.category | default: 'Food' }}
+                        <i class="bi bi-tag me-1"></i> {{ featured.category | default: 'Blog' }}
                     </span>
                     <span class="badge bg-light text-dark border">
-                        <i class="bi bi-people me-1"></i> {{ featured.serving | default: '4 Servings' }}
+                        <i class="bi bi-people me-1"></i> {{ featured.serving | default: 'Natwar singh' }}
                     </span>
                     <span class="badge bg-light text-dark border">
                         <i class="bi bi-clock me-1"></i> {{ featured.cook_time | default: '30 mins' }}
